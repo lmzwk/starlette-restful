@@ -95,7 +95,7 @@ DEFAULTS = {
     "DEFAULT_PERMISSION_CLASSES": [
         "starlette_restful.permissions.AllowAny",
     ],
-    "UNAUTHENTICATED_USER": "starlette_restful.auth.model.AnonymousUser",
+    "UNAUTHENTICATED_USER": "starlette.authentication.UnauthenticatedUser",
     "UNAUTHENTICATED_TOKEN": None,
 }
 
