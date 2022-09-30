@@ -79,6 +79,9 @@ class APIView(HTTPEndpoint):
         handler: typing.Callable[[Request], typing.Any] = getattr(
             self, handler_name, self.method_not_allowed
         )
+
+        await self.initial(request)
+        
         is_async = is_async_callable(handler)
         if is_async:
             response = await handler(request, **request.path_params)
