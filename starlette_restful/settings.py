@@ -44,13 +44,13 @@ class BaseAPISettings:
         self._cached_attrs = set()
 
     @property
-    def user_settings(self):
+    def user_settings(self) -> Dict[str, Any]:
         if not hasattr(self, "_user_settings"):
             self._user_settings = {}
 
         return self._user_settings
 
-    def __getattr__(self, attr: str):
+    def __getattr__(self, attr: str) -> Any:
         if attr not in self.defaults:
             raise AttributeError("Invalid API setting: '%s'" % attr)
 
@@ -70,7 +70,7 @@ class BaseAPISettings:
         setattr(self, attr, val)
         return val
 
-    def set_settings(self, *args, **kwags):
+    def set_settings(self, **kwags: Any) -> None:
         self.relaod()
         setattr(
             self,
@@ -82,7 +82,7 @@ class BaseAPISettings:
             },
         )
 
-    def relaod(self):
+    def relaod(self) -> None:
         for attr in self._cached_attrs:
             delattr(self, attr)
         self._cached_attrs.clear()
@@ -91,7 +91,9 @@ class BaseAPISettings:
 
 
 DEFAULTS = {
-    "DEFAULT_AUTHENTICATION_CLASSES": [],
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "starlette_restful.authentication.BasicAuthentication",
+    ],
     "DEFAULT_PERMISSION_CLASSES": [
         "starlette_restful.permissions.AllowAny",
     ],
@@ -127,7 +129,7 @@ class APISettings(BaseAPISettings):
         DEFAULT_PERMISSION_CLASSES: List[str] = None,
         UNAUTHENTICATED_USER: Optional[str] = None,
         UNAUTHENTICATED_TOKEN: Optional[Any] = None,
-    ):
+    ) -> None:
         settings = locals()
         settings.pop("self")
         super().set_settings(**settings)
