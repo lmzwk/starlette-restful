@@ -52,7 +52,7 @@ class LoginAPIView(APIView):
         return ORJSONResponse({"token": token})
 
 
-class UserProfieAPView(APIView):
+class UserProfileAPView(APIView):
     authentication_classes = (authentication.BasicAuthentication,)
     permission_classes = (permissions.IsAuthenticated,)
 
@@ -63,7 +63,7 @@ class UserProfieAPView(APIView):
 app = Starlette(
     routes=[
         Route("/login", LoginAPIView),
-        Route("/users/profile", UserProfieAPView),
+        Route("/users/profile", UserProfileAPView),
     ]
 )
 
