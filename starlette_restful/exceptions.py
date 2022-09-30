@@ -1,4 +1,3 @@
-from email import message
 from typing import Optional
 
 from starlette import status
